@@ -16,6 +16,7 @@ app.use(express.static("public"));
 
 let posts=[];
 
+// Home Route - GET
 app.get("/",function(req,res){
   res.render("home",{
     startingContent:homeStartingContent,
@@ -23,18 +24,22 @@ app.get("/",function(req,res){
   });
 });
 
+// About Route - GET
 app.get("/about",function(req,res){
   res.render("about",{aboutContent:aboutContent});
 });
 
+// Contact Route - GET
 app.get("/contact",function(req,res){
   res.render("contact",{contactContent:contactContent});
 });
 
+// Compose Route - GET
 app.get("/compose",function(req,res){
   res.render("compose");
 });
 
+// Compose Route - POST
 app.post("/compose",function(req,res){
   let post={
     title:req.body.postTitle,
@@ -44,7 +49,17 @@ app.post("/compose",function(req,res){
   res.redirect("/");
 });
 
+// POSTS Route - GET
+app.get("/posts/:postTitle",function(req,res){
 
+  posts.forEach((post)=>{
+    if(post.title==req.params.postTitle){
+      console.log("Match Found!");
+    }else{
+      console.log("No Matches!"); 
+    }
+  });
+});
 
 app.listen(3000, function() {
   console.log("Server started on port 3000");
